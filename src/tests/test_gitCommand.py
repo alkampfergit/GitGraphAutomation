@@ -21,6 +21,7 @@ def test_git_invocation_can_limit(num):
     Verify that we are able to limit the number of commit we can log.
     '''
     output = invokeGitLog(num) 
-    parsed = json.loads("[" + output.strip(',') + "]")
+    jsonToParse = "[" + output.strip(',') + "]"
+    parsed = json.loads(jsonToParse)
 
     assert len(parsed) == num

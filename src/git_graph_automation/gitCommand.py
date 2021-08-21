@@ -1,10 +1,33 @@
 import os
-from posixpath import basename
+import subprocess
 
-def invokeGitLog(limit = 0):
-    baseCommand = "git log --pretty=format:'{%n  \"refs\" : \"%D\",%n  \"hash\": \"%H\",%n  \"hashAbbrev\" : \"%h\",%n  \"parents\" : [\"%P\"],%n  \"author\": {%n    \"name\": \"%aN\",%n    \"email\": \"%aE\",%n    \"timestamp\": \"%aD\"%n  },%n  \"subject\": \"%s\"%n},'"
+def invokeGitLog(limit = 0, directory = ""):
+
+    # When directory is not specified we work in current directory.
+    if directory == "":
+        directory = os.path.dirname(__file__)
+
+    # # baseCommand = "git --git-dir='C:/develop/GitHub/AzureDevopsWordPlayground/.git' log --pretty=format:'{%n  \"refs\" : \"%D\",%n  \"hash\": \"%H\",%n  \"hashAbbrev\" : \"%h\",%n  \"parents\" : [\"%P\"],%n  \"author\": {%n    \"name\": \"%aN\",%n    \"email\": \"%aE\",%n    \"timestamp\": \"%aD\"%n  },%n  \"subject\": \"%s\"%n},'"
+    # # if limit > 0:
+    # #     baseCommand += f' -n {limit}'
+    # command = ['git']
+    # command.append('--git-dir=C:/develop/GitHub/AzureDevopsWordPlayground/.git')
+    # command.append('log')
+    # command.append("--pretty=format:'{%n  \"refs\" : \"%D\",%n  \"hash\": \"%H\",%n  \"hashAbbrev\" : \"%h\",%n  \"parents\" : [\"%P\"],%n  \"author\": {%n    \"name\": \"%aN\",%n    \"email\": \"%aE\",%n    \"timestamp\": \"%aD\"%n  },%n  \"subject\": \"%s\"%n},")
+    
+    # if limit > 0:
+    #     command.append(f'-n {limit}')
+    
+    # output = subprocess.run(command, capture_output=True)
+    # result = output.stdout.decode('utf-8')
+
+    command = ['git']
+    command.append('--git-dir=C:/develop/GitHub/AzureDevopsWordPlayground/.git')
+    command.append('log')
+    command.append("--pretty=format:{\"refs\" : \"%D\",  \"hash\": \"%H\",  \"hashAbbrev\" : \"%h\",  \"parents\" : [\"%P\"],  \"author\": {    \"name\": \"%aN\",    \"email\": \"%aE\",    \"timestamp\": \"%aD\"  },  \"subject\": \"%s\"},")
+    
     if limit > 0:
-        baseCommand += f' -n {limit}'
-    stream = os.popen(baseCommand)
-    output = stream.read()
-    return output
+        command.append(f'-n {limit}')
+    process = subprocess.Popen(command, cwd=directory, stdout=subprocess.PIPE)
+    result = process.communicate()[0].decode('utf-8')
+    return result
