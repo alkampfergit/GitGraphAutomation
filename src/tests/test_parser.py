@@ -6,7 +6,7 @@ from src.git_graph_automation.logParser import parseJsonOutput
 def getTestData(dataFileName):
     with open(f'{os.path.dirname(__file__)}/data/{dataFileName}', 'r') as file:
         data = file.read()
-    return data;
+    return data
 
 @pytest.mark.parametrize("dataFileName", [
     ("single.json"),
@@ -26,7 +26,14 @@ def test_parse_single_record():
 def test_fix_of_refs():
     parsed = parseJsonOutput(getTestData("single.json"))
     elem = parsed[0]
-    assert len(elem["refs"]) == 2
+    assert len(elem["refs"]) == 1
+    assert elem["refs"] == ["develop"]
+
+def test_empty_refs_generates_empty_list():
+    parsed = parseJsonOutput(getTestData("twocommits.json"))
+    elem = parsed[1]
+    assert len(elem["refs"]) == 0
+    assert elem["refs"] == []
 
 
 
