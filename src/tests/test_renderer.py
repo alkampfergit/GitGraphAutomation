@@ -12,3 +12,4 @@ def test_render_basic_capabilities(tmp_path):
         rendered = file.read()
 
     assert data in rendered
+    
