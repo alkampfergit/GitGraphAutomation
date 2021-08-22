@@ -34,6 +34,16 @@ def test_empty_refs_generates_empty_list():
     elem = parsed[1]
     assert len(elem["refs"]) == 0
     assert elem["refs"] == []
+    assert len(elem["parents"]) == 1
+
+def test_two_parents():
+    '''
+    Git log write parents separated by a space as a single string.
+    '''
+    parsed = parseJsonOutput(getTestData("single-twoparents.json"))
+    elem = parsed[0]
+    assert len(elem["parents"]) == 2
+    assert elem["parents"] == ["ec2145c002980352140c2369dba71175de1ebfc6", "ac2145c002980352140c2369dba71175de1ebfc6"]
 
 
 

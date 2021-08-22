@@ -2,7 +2,7 @@
   "refs" : "HEAD -> develop, origin/develop",
   "hash": "29c6b7c4e7309ad3e80ae9c8a998dba6dfac8dc2",
   "hashAbbrev" : "29c6b7c",
-  "parents" : ["ec2145c002980352140c2369dba71175de1ebfc6"],
+  "parents" : "ec2145c002980352140c2369dba71175de1ebfc6",
   "author": {
     "name": "Gian Maria Ricci",
     "email": "alkampfer@nablasoft.com",

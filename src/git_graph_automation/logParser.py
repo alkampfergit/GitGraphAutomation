@@ -21,18 +21,30 @@ def parseJsonOutput(jsonData):
     # gitgraph library does not seems to be able to render more than one refs, so we simply
     # create an array with the whole list of branches.
     for commit in fullData:
-        splittedRefs = commit["refs"].split(",")
-        newref = ""
+        fixRef(commit)
+        fixParents(commit)
 
-        for ref in splittedRefs:
-            # omit every origin refs (need to generalize)
-            ref = ref.strip()
-            if ref and not refsShouldBeOmitted(ref):
-                newref = newref + adjustRef(ref)
-
-        if newref:
-            commit["refs"] = [newref]
-        else:
-            commit["refs"] = []
-        
     return fullData
+
+def fixParents(commit):
+    parents = commit["parents"]
+    if ' ' in parents:
+        splittedParents = parents.split(' ')
+        commit["parents"] = splittedParents
+    else:
+        commit["parents"] = [parents]
+
+def fixRef(commit):
+    splittedRefs = commit["refs"].split(",")
+    newref = ""
+
+    for ref in splittedRefs:
+        # omit every origin refs (need to generalize)
+        ref = ref.strip()
+        if ref and not refsShouldBeOmitted(ref):
+            newref = newref + adjustRef(ref)
+
+    if newref:
+        commit["refs"] = [newref]
+    else:
+        commit["refs"] = [] 

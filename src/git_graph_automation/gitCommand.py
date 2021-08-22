@@ -22,9 +22,9 @@ def invokeGitLog(limit = 0, directory = ""):
     # result = output.stdout.decode('utf-8')
 
     command = ['git']
-    command.append('--git-dir=C:/develop/GitHub/AzureDevopsWordPlayground/.git')
+    # command.append('--git-dir=C:/develop/GitHub/AzureDevopsWordPlayground/.git')
     command.append('log')
-    command.append("--pretty=format:{\"refs\" : \"%D\",  \"hash\": \"%H\",  \"hashAbbrev\" : \"%h\",  \"parents\" : [\"%P\"],  \"author\": {    \"name\": \"%aN\",    \"email\": \"%aE\",    \"timestamp\": \"%aD\"  },  \"subject\": \"%s\"},")
+    command.append("--pretty=format:{\"refs\" : \"%D\",  \"hash\": \"%H\",  \"hashAbbrev\" : \"%h\",  \"parents\" : \"%P\",  \"author\": {    \"name\": \"%aN\",    \"email\": \"%aE\",    \"timestamp\": \"%aD\"  },  \"subject\": \"%s\"},")
     
     if limit > 0:
         command.append(f'-n {limit}')
