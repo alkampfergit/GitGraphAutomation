@@ -26,5 +26,6 @@ jobs:
         pytest src --cov-report html --cov
 
     - name: Analysing the code with pylint
+      continue-on-error: true
       run: |
         pylint src/git_graph_automation
