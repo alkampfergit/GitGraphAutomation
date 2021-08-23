@@ -21,7 +21,7 @@ def test_full_rendering_last_10_commits(tmp_path):
     data = json.dumps(parsed) 
     renderHtml(data, filePath)
 
-#@pytest.mark.skip(reason="this will use real browser to dump the file")
+@pytest.mark.skip(reason="this will use real browser to dump the file")
 def test_full_rendering_in_selenium(tmp_path):
     filePath = tmp_path / "test_full_rendering_last_10_commits.html"
     outputImage = tmp_path / "test_full_rendering_last_10_commits.png"

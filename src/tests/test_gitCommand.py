@@ -24,4 +24,5 @@ def test_git_invocation_can_limit(num):
     jsonToParse = "[" + output.strip(',') + "]"
     parsed = json.loads(jsonToParse)
 
+    print(parsed)
     assert len(parsed) == num
