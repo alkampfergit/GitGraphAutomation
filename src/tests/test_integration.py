@@ -1,9 +1,9 @@
 import pytest
 import os
 import json
-from src.git_graph_automation.renderer import renderHtml
-from src.git_graph_automation.logParser import parseJsonOutput
-from src.git_graph_automation.gitCommand import invokeGitLog
+from src.git_graph_automation.renderer import render_html
+from src.git_graph_automation.log_parser import parse_json_output
+from src.git_graph_automation.git_command import invoke_git_log
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
@@ -16,10 +16,10 @@ def test_full_rendering_last_10_commits(tmp_path):
     if os.path.exists(filePath):
         os.remove(filePath)
 
-    gitLog = invokeGitLog(10)
-    parsed = parseJsonOutput(gitLog)
+    gitLog = invoke_git_log(10)
+    parsed = parse_json_output(gitLog)
     data = json.dumps(parsed) 
-    renderHtml(data, filePath)
+    render_html(data, filePath)
 
 @pytest.mark.skip(reason="this will use real browser to dump the file")
 def test_full_rendering_in_selenium(tmp_path):
@@ -32,10 +32,10 @@ def test_full_rendering_in_selenium(tmp_path):
     if os.path.exists(outputImage):
         os.remove(outputImage)
 
-    gitLog = invokeGitLog(10)
-    parsed = parseJsonOutput(gitLog)
+    gitLog = invoke_git_log(10)
+    parsed = parse_json_output(gitLog)
     data = json.dumps(parsed) 
-    renderHtml(data, filePath)
+    render_html(data, filePath)
 
     # get the name in a correct format
     temp_name = "file://" + filePath.as_posix()

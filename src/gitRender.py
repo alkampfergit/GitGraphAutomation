@@ -4,9 +4,9 @@ import json
 import subprocess
 import os
 from playwright.sync_api import sync_playwright
-from git_graph_automation.renderer import renderHtml
-from git_graph_automation.logParser import parseJsonOutput
-from git_graph_automation.gitCommand import invokeGitLog
+from git_graph_automation.renderer import render_html
+from git_graph_automation.log_parser import parse_json_output
+from git_graph_automation.git_command import invoke_git_log
 
 parser = argparse.ArgumentParser(description='Generates a graph with gitgraph.js of an existing commit.')
 parser.add_argument('--repo', type=str, help='Path of the repo to dump')
@@ -16,17 +16,17 @@ parser.add_argument('--renderpng', type=str, help='if specified, will use playwr
 if __name__ == '__main__':
     args = parser.parse_args()
     f = args.outhtml
-    if (f == None):
+    if f == None:
         tempFile = tempfile.TemporaryFile()
         f = tempFile.name
     
     print (f'Writing output file to {f}')
-    gitLog = invokeGitLog(limit=100, directory=args.repo)
-    html = parseJsonOutput(gitLog)
+    gitLog = invoke_git_log(limit=100, directory=args.repo)
+    html = parse_json_output(gitLog)
     data = json.dumps(html) 
-    renderHtml(data, f)
+    render_html(data, f)
 
-    if (args.renderpng != None):
+    if args.renderpng != None:
         with sync_playwright() as p:
             browser = p.chromium.launch()
             page = browser.new_page()

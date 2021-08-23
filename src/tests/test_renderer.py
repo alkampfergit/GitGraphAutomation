@@ -1,12 +1,9 @@
-import pytest
-import os
-import json
-from src.git_graph_automation.renderer import renderHtml
+from src.git_graph_automation.renderer import render_html
 
 def test_render_basic_capabilities(tmp_path):
     data = "string_test"
     file = tmp_path / "outfile.html"
-    renderHtml(data, file)
+    render_html(data, file)
 
     with open(file, 'r') as file:
         rendered = file.read()
