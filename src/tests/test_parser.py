@@ -5,6 +5,11 @@ from src.git_graph_automation.log_parser import parse_json_output
 
 
 def get_test_data(data_file_name):
+    """
+    Load test data from a file in /data/ subdirectory
+    @param data_file_name: Name of the test file
+    @return: The content of the file
+    """
     with open(f'{os.path.dirname(__file__)}/data/{data_file_name}', 'r') as file:
         data = file.read()
     return data

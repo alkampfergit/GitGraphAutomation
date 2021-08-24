@@ -19,11 +19,11 @@ if __name__ == '__main__':
     if f is None:
         tempFile = tempfile.TemporaryFile()
         f = tempFile.name
-    
+
     print(f"Writing output file to {f}")
     gitLog = invoke_git_log(limit=100, directory=args.repo)
     html = parse_json_output(gitLog)
-    data = json.dumps(html) 
+    data = json.dumps(html)
     render_html(data, f)
 
     if args.renderpng is not None:
@@ -33,7 +33,7 @@ if __name__ == '__main__':
             file_uri = f"file://{f}"
             page.goto(file_uri)
             page.screenshot(path=args.renderpng, full_page=True)
-            browser.close()  
-        
+            browser.close()
+
         if os.name == 'nt':
             subprocess.call(args.renderpng, shell=True)

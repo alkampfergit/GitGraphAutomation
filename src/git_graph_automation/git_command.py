@@ -8,6 +8,9 @@ import subprocess
 def invoke_git_log(limit=0, directory=""):
     """
     Invoke git via commandline requesting a json output format.
+    @param limit: Maximum number of commit to log, to avoid having a super big image
+    @param directory: Path that contains git repository you want to render
+    @return:
     """
     # When directory is not specified we work in current directory.
     if directory == "":

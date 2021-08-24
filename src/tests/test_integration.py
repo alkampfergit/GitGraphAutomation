@@ -1,14 +1,13 @@
-import pytest
-import os
 import json
-from src.git_graph_automation.renderer import render_html
-from src.git_graph_automation.log_parser import parse_json_output
-from src.git_graph_automation.git_command import invoke_git_log
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.chrome.options import Options
+import os
 import subprocess
+
+import pytest
 from playwright.sync_api import sync_playwright
+
+from src.git_graph_automation.git_command import invoke_git_log
+from src.git_graph_automation.log_parser import parse_json_output
+from src.git_graph_automation.renderer import render_html
 
 
 def test_full_rendering_last_10_commits(tmp_path):
@@ -56,7 +55,7 @@ def test_full_rendering_in_selenium(tmp_path):
     # driver = webdriver.Chrome(r'C:/temp/chromedriver_win32/chromedriver.exe', chrome_options=options)
 
     # driver.get(temp_name) # passing the file name or htmlString doesn't work...creates a blank png with nothing
-    # driver.save_screenshot(outputImage.as_posix()) 
+    # driver.save_screenshot(outputImage.as_posix())
     # driver.quit()
 
     # Now open the file, this work in windows
