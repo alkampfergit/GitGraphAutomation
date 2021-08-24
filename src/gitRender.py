@@ -21,8 +21,8 @@ if __name__ == '__main__':
         f = tempFile.name
 
     print(f"Writing output file to {f}")
-    gitLog = invoke_git_log(limit=100, directory=args.repo)
-    html = parse_json_output(gitLog)
+    git_log = invoke_git_log(limit=100, directory=args.repo)
+    html = parse_json_output(git_log)
     data = json.dumps(html)
     render_html(data, f)
 
