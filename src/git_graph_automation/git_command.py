@@ -1,13 +1,14 @@
-'''
+"""
 Invoke git and grab output
-'''
+"""
 import os
 import subprocess
 
-def invoke_git_log(limit = 0, directory = ""):
-    '''
+
+def invoke_git_log(limit=0, directory=""):
+    """
     Invoke git via commandline requesting a json output format.
-    '''
+    """
     # When directory is not specified we work in current directory.
     if directory == "":
         directory = os.path.dirname(__file__)
@@ -29,7 +30,8 @@ def invoke_git_log(limit = 0, directory = ""):
     command = ['git']
     # command.append('--git-dir=C:/develop/GitHub/AzureDevopsWordPlayground/.git')
     command.append('log')
-    command.append("--pretty=format:{\"refs\" : \"%D\",  \"hash\": \"%H\",  \"hashAbbrev\" : \"%h\",  \"parents\" : \"%P\",  \"author\": {    \"name\": \"%aN\",    \"email\": \"%aE\",    \"timestamp\": \"%aD\"  },  \"subject\": \"%s\"},")
+    command.append(
+        "--pretty=format:{\"refs\" : \"%D\",  \"hash\": \"%H\",  \"hashAbbrev\" : \"%h\",  \"parents\" : \"%P\",  \"author\": {    \"name\": \"%aN\",    \"email\": \"%aE\",    \"timestamp\": \"%aD\"  },  \"subject\": \"%s\"},")
 
     if limit > 0:
         command.append(f'-n {limit}')

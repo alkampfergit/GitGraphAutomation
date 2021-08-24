@@ -16,21 +16,22 @@ parser.add_argument('--renderpng', type=str, help='if specified, will use playwr
 if __name__ == '__main__':
     args = parser.parse_args()
     f = args.outhtml
-    if f == None:
+    if f is None:
         tempFile = tempfile.TemporaryFile()
         f = tempFile.name
     
-    print (f'Writing output file to {f}')
+    print(f"Writing output file to {f}")
     gitLog = invoke_git_log(limit=100, directory=args.repo)
     html = parse_json_output(gitLog)
     data = json.dumps(html) 
     render_html(data, f)
 
-    if args.renderpng != None:
+    if args.renderpng is not None:
         with sync_playwright() as p:
             browser = p.chromium.launch()
             page = browser.new_page()
-            page.goto(f)
+            file_uri = f"file://{f}"
+            page.goto(file_uri)
             page.screenshot(path=args.renderpng, full_page=True)
             browser.close()  
         
