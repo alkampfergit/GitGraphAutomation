@@ -13,6 +13,14 @@ playwright install
 
 After that you can use it with simple command line to render commit list of repository specified with --repo parameter.
 
-```bash
+Windows command line
+
+```powershell
 python .\gitRender.py --repo C:\develop\github\GitGraphAutomation\ --outhtml c:\temp\render.html --renderpng c:\temp\render.png
+```
+
+Linux command line
+
+```bash
+./gitRender.py --repo /home/user/develop/myrepo --outhtml /tmp/render.html --renderpng /tmp/render.png
 ```
