@@ -1,7 +1,15 @@
 name: pylint
 
-on: [push]
-
+on:
+  push:
+    branches:
+      - master
+      - develop
+      - release/*
+      - feature/*
+      - hotfix/*
+  pull_request:
+    types: [opened, synchronize, reopened]
 jobs:
   build:
 
@@ -23,9 +31,14 @@ jobs:
 
     - name: Running pytest
       run: |
-        pytest src --cov-report html --cov
+        pytest -v  --cov --cov-report=xml --cov-report=html
 
     - name: Analysing the code with pylint
       continue-on-error: true
       run: |
         pylint src/git_graph_automation
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
