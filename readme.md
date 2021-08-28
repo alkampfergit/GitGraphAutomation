@@ -26,3 +26,5 @@ Linux command line:
 ```bash
 ./gitRender.py --repo /home/user/develop/myrepo --outhtml /tmp/render.html --renderpng /tmp/render.png
 ```
+
+[![SonarCloud badge](https://sonarcloud.io/api/project_badges/measure?project=alkampfergit_GitGraphAutomation&metric=alert_status)](https://sonarcloud.io/dashboard?id=alkampfergit_GitGraphAutomation)

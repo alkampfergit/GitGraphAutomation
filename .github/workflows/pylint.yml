@@ -31,7 +31,7 @@ jobs:
 
     - name: Running pytest
       run: |
-        pytest -v  --cov --cov-report=xml --cov-report=html
+        pytest -v  --cov --cov-report=xml --cov-report=html --junitxml=xunit-result.xml
 
     - uses: actions/upload-artifact@v2
       with:
@@ -42,6 +42,7 @@ jobs:
       continue-on-error: true
       run: |
         pylint src/git_graph_automation
+
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
       env:
