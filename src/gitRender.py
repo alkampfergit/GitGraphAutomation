@@ -12,6 +12,7 @@ parser = argparse.ArgumentParser(description='Generates a graph with gitgraph.js
 parser.add_argument('--repo', type=str, help='Path of the repo to dump')
 parser.add_argument('--outhtml', type=str, help='destination html file to render.')
 parser.add_argument('--renderpng', type=str, help='if specified, will use playwright to render a png of the graph')
+parser.add_argument('--limit', type=int, help='limit the number of commits to render')
 
 if __name__ == '__main__':
     args = parser.parse_args()
@@ -21,7 +22,7 @@ if __name__ == '__main__':
         f = tempFile.name
 
     print(f"Writing output file to {f}")
-    git_log = invoke_git_log(limit=100, directory=args.repo)
+    git_log = invoke_git_log(limit=args.limit, directory=args.repo)
     html = parse_json_output(git_log)
     data = json.dumps(html)
     render_html(data, f)
