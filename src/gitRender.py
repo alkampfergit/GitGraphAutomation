@@ -12,7 +12,7 @@ parser = argparse.ArgumentParser(description='Generates a graph with gitgraph.js
 parser.add_argument('--repo', type=str, help='Path of the repo to dump')
 parser.add_argument('--outhtml', type=str, help='destination html file to render.')
 parser.add_argument('--renderpng', type=str, help='if specified, will use playwright to render a png of the graph')
-parser.add_argument('--limit', type=int, help='limit the number of commits to render')
+parser.add_argument('--limit', default=100, type=int, help='limit the number of commits to render')
 
 if __name__ == '__main__':
     args = parser.parse_args()

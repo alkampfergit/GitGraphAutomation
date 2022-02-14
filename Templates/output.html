@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html  lang="en">
+<head>
+  <title>Git GraphJs Rendering</title>
+  <script src="https://cdn.jsdelivr.net/npm/@gitgraph/js"></script>
+</head>
+<body>
+  <div id="graph-container"></div>
+  
+    <script>
+	var xhttp = new XMLHttpRequest();
+	 xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          const graphContainer = document.getElementById("graph-container");
+          const gitgraph = GitgraphJS.createGitgraph(graphContainer, {
+            "orientation": "vertical",
+            "template" : "blackarrow"
+          });
+          
+          gitgraph.import(JSON.parse(this.responseText));
+        }
+    };
+    xhttp.open("GET", "http://localhost:10000/data", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send();
+   
+
+  </script>
+</body>
+</html>
