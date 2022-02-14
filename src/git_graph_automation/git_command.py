@@ -33,6 +33,7 @@ def invoke_git_log(limit=0, directory=""):
     command = ['git']
     # command.append('--git-dir=C:/develop/GitHub/AzureDevopsWordPlayground/.git')
     command.append('log')
+    command.append('--all')
     command.append(
         "--pretty=format:{\"refs\" : \"%D\",  \"hash\": \"%H\",  \"hashAbbrev\" : \"%h\",  \"parents\" : \"%P\",  \"author\": {    \"name\": \"%aN\",    \"email\": \"%aE\",    \"timestamp\": \"%aD\"  },  \"subject\": \"%s\"},")
 
