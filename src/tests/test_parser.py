@@ -65,7 +65,8 @@ def test_can_handle_multiple_branches():
 
 
 def test_allow_include_origin():
-    parsed = parse_json_output(get_test_data("single-origindiff.json"), include_origin = True)
+    parsed = parse_json_output(get_test_data("single-origindiff.json"), include_origin=True)
     elem = parsed[0]
     assert len(elem["refs"]) == 1
     assert elem["refs"] == ["develop, origin/foo, origin/develop"]
+

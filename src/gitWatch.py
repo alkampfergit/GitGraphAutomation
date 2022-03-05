@@ -16,14 +16,15 @@ app = Flask(__name__)
 
 print(f"monitoring folder {args.repo} with maximum number of commit {args.limit}")
 
+
 @app.route('/data', methods=['GET'])
 @cross_origin()
 def data():
     git_log = invoke_git_log(limit=args.limit, directory=args.repo)
     html = parse_json_output(git_log)
-    data = json.dumps(html)
-    return data
+    json_data = json.dumps(html)
+    return json_data
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=10000)
-

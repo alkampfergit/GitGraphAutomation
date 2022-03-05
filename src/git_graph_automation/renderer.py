@@ -16,4 +16,4 @@ def render_html(json_content: str, out_file: str):
     data = data.replace("***COMMITHERE***", json_content)
 
     with open(out_file, 'w') as file:
-        data = file.write(data)
+        file.write(data)

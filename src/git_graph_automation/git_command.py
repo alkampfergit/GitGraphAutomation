@@ -30,12 +30,11 @@ def invoke_git_log(limit=0, directory=""):
     # output = subprocess.run(command, capture_output=True)
     # result = output.stdout.decode('utf-8')
 
-    command = ['git']
+    command = ['git', 'log', '--all',
+               "--pretty=format:{\"refs\" : \"%D\",  \"hash\": \"%H\",  \"hashAbbrev\" : \"%h\",  \"parents\" : "
+               "\"%P\",  \"author\": {    \"name\": \"%aN\",    \"email\": \"%aE\",    \"timestamp\": \"%aD\"  },  "
+               "\"subject\": \"%s\"},"]
     # command.append('--git-dir=C:/develop/GitHub/AzureDevopsWordPlayground/.git')
-    command.append('log')
-    command.append('--all')
-    command.append(
-        "--pretty=format:{\"refs\" : \"%D\",  \"hash\": \"%H\",  \"hashAbbrev\" : \"%h\",  \"parents\" : \"%P\",  \"author\": {    \"name\": \"%aN\",    \"email\": \"%aE\",    \"timestamp\": \"%aD\"  },  \"subject\": \"%s\"},")
 
     if limit > 0:
         command.append(f'-n {limit}')
