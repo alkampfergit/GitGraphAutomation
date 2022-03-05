@@ -28,3 +28,13 @@ Linux command line:
 ```
 
 [![SonarCloud badge](https://sonarcloud.io/api/project_badges/measure?project=alkampfergit_GitGraphAutomation&metric=alert_status)](https://sonarcloud.io/dashboard?id=alkampfergit_GitGraphAutomation)
+
+## Continuous watching of a repository
+
+Starts a monitor with simple Flask server that serves repository structure on port 10000.
+
+```bash
+python ./gitWatch.py --repo /home/user/develop/myrepo
+```
+
+Then simply open the Templates/Ouput.html file that point to localhost:10000 and poll the flask server to get the latest commit list to render repository structure.
