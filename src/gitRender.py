@@ -23,7 +23,7 @@ if __name__ == '__main__':
 
     print(f"Writing output file to {f}")
     git_log = invoke_git_log(limit=args.limit, directory=args.repo)
-    html = parse_json_output(git_log)
+    html = parse_json_output(git_log, True)
     data = json.dumps(html)
     render_html(data, f)
 

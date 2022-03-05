@@ -4,7 +4,7 @@ Module to render html file with all data to render the image
 import os
 
 
-def render_html(json_content: str, out_file: str) -> object:
+def render_html(json_content: str, out_file: str):
     """
     Accepts a json content parsed with log_parser module and render html file
     @param json_content: Content of json parsed by the log_parser module

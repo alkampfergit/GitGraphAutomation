@@ -5,14 +5,15 @@ the format needed by GitGraph.js
 import json
 
 
-def refs_should_be_omitted(ref: str):
+def refs_should_be_omitted(ref: str, include_origin: bool):
     """
     Determine if a ref should be completely omitted from json output, we do not want
     to show origin
     @param ref: string containing the ref
+    @param include_origin: boolean to indicate if origin should be included
     @return: True if this ref should be omitted from the list
     """
-    return ref.startswith("origin/")
+    return (ref.startswith("origin/") and not include_origin) or "/HEAD" in ref
 
 
 def adjust_ref(ref: str):
@@ -26,11 +27,12 @@ def adjust_ref(ref: str):
     return ref
 
 
-def parse_json_output(json_data: str):
+def parse_json_output(json_data: str, include_origin: bool = False):
     """
     Takes raw git log in json format and adjust some part of it to be compatible
     with GitGraph.js
     @param json_data: contains the json output of a git log formatted in json
+    @param include_origin: boolean to indicate if origin should be included
     @return: json output with various fix to be used as json input for GitGraph.js, return
     is an array of commit object
     """
@@ -46,7 +48,7 @@ def parse_json_output(json_data: str):
     # gitgraph library does not seems to be able to render more than one refs, so we simply
     # create an array with the whole list of branches.
     for commit in full_data:
-        fix_ref(commit)
+        fix_ref(commit, include_origin)
         fix_parents(commit)
 
     return full_data
@@ -65,22 +67,22 @@ def fix_parents(commit):
         commit["parents"] = [parents]
 
 
-def fix_ref(commit):
+def fix_ref(commit, include_origin):
     """
     Fix refs of the commit, this is needed because refs are comma separated in raw json
     output of git log
     @param commit: commit parsed from json, it is a dictionary
+    @param include_origin: boolean to indicate if origin should be included
     """
     splitted_refs = commit["refs"].split(",")
-    newref = ""
+    newref = []
 
     for ref in splitted_refs:
         # omit every origin refs (need to generalize)
         ref = ref.strip()
-        if ref and not refs_should_be_omitted(ref):
-            newref += adjust_ref(ref)
-
-    if newref:
-        commit["refs"] = [newref]
-    else:
+        if ref and not refs_should_be_omitted(ref, include_origin):
+            newref.append(adjust_ref(ref))
+    if len(newref) == 0:
         commit["refs"] = []
+    else:
+        commit["refs"] = [", ".join(newref)]

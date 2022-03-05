@@ -55,3 +55,17 @@ def test_two_parents():
     elem = parsed[0]
     assert len(elem["parents"]) == 2
     assert elem["parents"] == ["ec2145c002980352140c2369dba71175de1ebfc6", "ac2145c002980352140c2369dba71175de1ebfc6"]
+
+
+def test_can_handle_multiple_branches():
+    parsed = parse_json_output(get_test_data("single-twobranches.json"))
+    elem = parsed[0]
+    assert len(elem["refs"]) == 1
+    assert elem["refs"] == ["develop, otherbranch"]
+
+
+def test_allow_include_origin():
+    parsed = parse_json_output(get_test_data("single-origindiff.json"), include_origin = True)
+    elem = parsed[0]
+    assert len(elem["refs"]) == 1
+    assert elem["refs"] == ["develop, origin/foo, origin/develop"]
