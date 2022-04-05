@@ -9,6 +9,7 @@ from git_graph_automation.log_parser import parse_json_output
 
 parser = argparse.ArgumentParser(description='Generates a graph with gitgraph.js of an existing commit.')
 parser.add_argument('--repo', type=str, help='Path of the repo to dump')
+parser.add_argument('--port', default=10000, type=int, help='Port to listen')
 parser.add_argument('--limit', default=100, type=int, help='limit the number of commits to render')
 
 args = parser.parse_args()
@@ -27,4 +28,4 @@ def data():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=10000)
+    app.run(host='0.0.0.0', port=args.port)
