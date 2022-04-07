@@ -2,10 +2,12 @@
 <html  lang="en">
 <head>
   <title>Git GraphJs Rendering</title>
+  <!-- https://github.com/nicoespeon/gitgraph.js -->
   <script src="https://cdn.jsdelivr.net/npm/@gitgraph/js"></script>
 
   <script>
-
+	import {GitgraphJS}
+	
     let graphContainer;
     let gitgraph;
 
@@ -27,9 +29,18 @@
 
     function startMonitor() {
       graphContainer = document.getElementById("graph-container");
+	  
+	  var customTemplate = GitgraphJS.templateExtend(GitgraphJS.TemplateName.BlackArrow, {
+        commit: {
+          message: {
+            displayAuthor: false,
+          },
+        },
+      });
+	  
       gitgraph = GitgraphJS.createGitgraph(graphContainer, {
         "orientation": "vertical",
-        "template" : "blackarrow"
+        "template" : customTemplate
       });
       refresh();
     }
