@@ -22,7 +22,7 @@ print(f"monitoring folder {args.repo} with maximum number of commit {args.limit}
 @cross_origin()
 def data():
     git_log = invoke_git_log(limit=args.limit, directory=args.repo)
-    html = parse_json_output(git_log)
+    html = parse_json_output(git_log, include_origin=True)
     json_data = json.dumps(html)
     return json_data
 
